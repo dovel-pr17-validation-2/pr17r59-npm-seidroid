@@ -1,4 +1,4 @@
-import { createPublicKey, verify, type JsonWebKey } from "node:crypto";
+import { createPublicKey, verify, type webcrypto } from "node:crypto";
 
 export const ISSUER = "https://token.actions.githubusercontent.com";
 const JWKS_TTL_MS = 60 * 60 * 1000;
@@ -19,7 +19,7 @@ export interface Claims {
   exp: number;
 }
 
-type Jwk = JsonWebKey & { kid: string };
+type Jwk = webcrypto.JsonWebKey & { kid: string };
 export type Keys = () => Promise<Jwk[]>;
 
 /** githubKeys fetches GitHub Actions' signing keys, caching them for an hour. */
